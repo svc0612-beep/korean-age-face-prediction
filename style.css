@@ -371,6 +371,15 @@ button:disabled {
   --caption-size: 15px;
 }
 
+.viz-section-title {
+  margin-top: 8px;
+}
+
+.viz-section-title h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
 .viz-card {
   overflow: hidden;
   margin: 0;

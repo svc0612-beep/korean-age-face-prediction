@@ -396,6 +396,74 @@ button:disabled {
   font-weight: 850;
 }
 
+.terms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.term-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.term-card h2 {
+  margin: 0 0 8px;
+  font-size: 19px;
+}
+
+.term-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.terms-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.term-table-wrap {
+  overflow-x: auto;
+}
+
+.term-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.term-table th,
+.term-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 15px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.term-table th {
+  color: #111827;
+  background: #f3f6fb;
+  font-size: 15px;
+}
+
+.term-table td:first-child {
+  width: 220px;
+  color: #111827;
+  font-weight: 850;
+}
+
+.term-table td:last-child {
+  color: #3d4654;
+  line-height: 1.65;
+}
+
 .file-workspace {
   display: grid;
   grid-template-columns: 360px minmax(0, 1fr);
@@ -479,7 +547,8 @@ textarea {
   .workspace,
   .camera-layout,
   .file-workspace,
-  .viz-page-grid {
+  .viz-page-grid,
+  .terms-grid {
     grid-template-columns: 1fr;
   }
 

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>용어 설명 | AgeLens KR</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">AgeLens KR</a>
+      <nav>
+        <a href="/">예측</a>
+        <a href="/visualizations.html">시각화</a>
+        <a href="/terms.html" aria-current="page">용어 설명</a>
+        <a href="/files.html">자료 관리</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero compact">
+        <div>
+          <p class="eyebrow">Project Glossary</p>
+          <h1>프로젝트 용어 설명</h1>
+          <p class="lead">발표와 보고서에서 사용할 주요 학습, 모델링, 웹앱 용어를 정리한 페이지입니다.</p>
+        </div>
+      </section>
+
+      <section class="terms-panel">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">Terms</p>
+            <h2>용어 / 설명</h2>
+          </div>
+        </div>
+
+        <div class="term-table-wrap">
+          <table class="term-table">
+            <thead>
+              <tr>
+                <th>용어</th>
+                <th>설명</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Train 데이터</td>
+                <td>모델이 실제로 학습하는 데이터이다. 모델은 Train 데이터의 이미지와 정답 나이를 반복해서 보면서 얼굴 특징과 나이 사이의 관계를 학습한다.</td>
+              </tr>
+              <tr>
+                <td>Validation 데이터</td>
+                <td>학습에 직접 사용하지 않고 성능을 확인하기 위해 사용하는 데이터이다. 처음 보는 데이터에 대해서도 잘 예측하는지 확인하는 용도이다.</td>
+              </tr>
+              <tr>
+                <td>age_past</td>
+                <td>사진이 촬영된 당시 인물의 실제 나이이다. 본 프로젝트에서는 age_now가 아니라 age_past를 정답 나이로 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>age_now</td>
+                <td>데이터 수집 시점의 현재 나이이다. 사진 속 당시 나이가 아니므로 모델 학습의 정답으로 사용하지 않았다.</td>
+              </tr>
+              <tr>
+                <td>Epoch</td>
+                <td>학습 데이터 전체를 모델이 한 번 학습한 횟수를 의미한다. 너무 적으면 학습이 부족하고, 너무 많으면 과적합이 발생할 수 있다.</td>
+              </tr>
+              <tr>
+                <td>Batch</td>
+                <td>학습 데이터를 한 번에 모델에 넣는 묶음 단위이다. 모든 이미지를 한 번에 넣으면 메모리를 많이 사용하기 때문에 여러 장씩 나누어 학습한다.</td>
+              </tr>
+              <tr>
+                <td>Loss</td>
+                <td>모델의 예측값이 실제 정답과 얼마나 다른지를 계산한 값이다. 학습 과정에서 모델은 Loss를 줄이는 방향으로 가중치를 조정한다.</td>
+              </tr>
+              <tr>
+                <td>SmoothL1Loss</td>
+                <td>회귀 문제에서 사용하는 손실 함수 중 하나이다. 큰 오차에 과도하게 흔들리지 않으면서 안정적으로 학습할 수 있어 나이 예측에 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>MAE</td>
+                <td>Mean Absolute Error의 약자로 평균 절대 오차를 의미한다. 실제 나이와 예측 나이의 차이를 절댓값으로 계산한 뒤 평균을 낸 값이다.</td>
+              </tr>
+              <tr>
+                <td>Overfitting</td>
+                <td>모델이 학습 데이터에는 잘 맞지만 새로운 데이터에는 잘 맞지 않는 상태이다. 이를 줄이기 위해 데이터 증강, Dropout, Weight Decay, Early Stopping 등을 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>Fine-tuning</td>
+                <td>이미 학습된 모델을 새로운 데이터에 맞게 추가 학습하는 과정이다. 본 프로젝트에서는 ImageNet으로 사전학습된 MobileNetV3 Small을 한국인 얼굴 나이 예측 데이터에 맞게 다시 학습하였다.</td>
+              </tr>
+              <tr>
+                <td>Backbone</td>
+                <td>이미지에서 중요한 특징을 추출하는 모델의 기본 구조이다. 본 프로젝트에서는 MobileNetV3 Small의 특징 추출 부분을 backbone으로 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>Regression</td>
+                <td>숫자 값을 예측하는 문제이다. 본 프로젝트는 나이를 실제 숫자에 가깝게 예측하므로 회귀 문제에 해당한다.</td>
+              </tr>
+              <tr>
+                <td>Classification</td>
+                <td>입력 데이터를 정해진 범주 중 하나로 나누는 문제이다. 나이대 분류 대신 실제 나이를 예측하기 위해 회귀 방식을 선택하였다.</td>
+              </tr>
+              <tr>
+                <td>Data Augmentation</td>
+                <td>학습 이미지를 좌우 반전, 회전, 밝기 변화 등으로 바꾸어 모델이 다양한 상황에 대응하도록 만드는 방법이다.</td>
+              </tr>
+              <tr>
+                <td>Normalization</td>
+                <td>이미지 픽셀 값을 일정한 기준으로 맞추는 과정이다. 본 프로젝트에서는 ImageNet 기준 평균과 표준편차를 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>WeightedRandomSampler</td>
+                <td>데이터가 불균형할 때 특정 그룹의 데이터가 학습에 더 잘 반영되도록 샘플링 비율을 조정하는 기능이다.</td>
+              </tr>
+              <tr>
+                <td>DataLoader</td>
+                <td>전체 이미지를 한 번에 메모리에 올리지 않고, CSV의 이미지 경로를 기준으로 batch 단위로 불러오는 PyTorch 기능이다.</td>
+              </tr>
+              <tr>
+                <td>CSV</td>
+                <td>이미지 경로, JSON 경로, age_past, 성별, split 같은 학습 정보를 표 형태로 저장한 파일이다.</td>
+              </tr>
+              <tr>
+                <td>JSON</td>
+                <td>데이터를 주고받을 때 사용하는 형식이다. 예측 나이, 참고 범위, MAE, 처리 시간 등을 JSON 형태로 전달하였다.</td>
+              </tr>
+              <tr>
+                <td>Base64</td>
+                <td>이미지 같은 바이너리 데이터를 문자열 형태로 변환하는 방식이다. 웹캠으로 촬영한 이미지를 서버에 보내기 위해 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>API</td>
+                <td>프론트엔드와 서버가 데이터를 주고받기 위한 통로이다. 본 프로젝트에서는 /predict API를 만들었다.</td>
+              </tr>
+              <tr>
+                <td>Inference</td>
+                <td>학습이 끝난 모델에 새 이미지를 넣고 예상 나이를 계산하는 과정이다. 웹캠 촬영 후 실행되는 단계이다.</td>
+              </tr>
+              <tr>
+                <td>Calibration</td>
+                <td>모델이 특정 나이대를 젊게 또는 나이 많게 예측하는 경향을 검증 데이터 통계로 보정하는 과정이다.</td>
+              </tr>
+              <tr>
+                <td>Domain Shift</td>
+                <td>학습 데이터와 실제 웹캠 입력의 촬영 환경이 달라 모델 예측이 흔들리는 현상이다. 조명, 각도, 화질, 카메라 거리 등이 영향을 준다.</td>
+              </tr>
+              <tr>
+                <td>Crop</td>
+                <td>전체 사진에서 얼굴 주변 영역만 잘라내는 과정이다. 입력 품질이 모델 결과에 크게 영향을 주기 때문에 웹캠 화면에서 얼굴 영역을 먼저 잘라낸다.</td>
+              </tr>
+              <tr>
+                <td>Resize</td>
+                <td>이미지 크기를 모델 입력 크기에 맞게 바꾸는 과정이다. 본 프로젝트에서는 얼굴 이미지를 224x224 크기로 맞추었다.</td>
+              </tr>
+              <tr>
+                <td>FaceDetector</td>
+                <td>브라우저가 지원할 경우 얼굴 위치를 찾아 crop에 활용하는 내장 기능이다. 지원하지 않으면 얼굴 가이드 영역을 기준으로 crop한다.</td>
+              </tr>
+              <tr>
+                <td>BBox</td>
+                <td>Bounding Box의 줄임말로 얼굴이 있는 사각형 영역의 위치 정보이다.</td>
+              </tr>
+              <tr>
+                <td>Landmark</td>
+                <td>눈, 코, 입처럼 얼굴의 주요 지점 좌표이다. 얼굴 위치 확인과 정렬에 사용할 수 있다.</td>
+              </tr>
+              <tr>
+                <td>MobileNetV3 Small</td>
+                <td>비교적 가볍고 실행이 빠른 CNN 계열 이미지 모델이다. 본 프로젝트에서는 나이 회귀 모델의 기반 구조로 사용하였다.</td>
+              </tr>
+              <tr>
+                <td>Dropout</td>
+                <td>학습 중 일부 뉴런을 임시로 끄는 방법이다. 모델이 특정 패턴에만 의존하지 않게 하여 과적합을 줄인다.</td>
+              </tr>
+              <tr>
+                <td>Weight Decay</td>
+                <td>모델 가중치가 지나치게 커지지 않도록 제한하는 정규화 방법이다. 과적합을 줄이는 데 사용된다.</td>
+              </tr>
+              <tr>
+                <td>Learning Rate</td>
+                <td>모델이 한 번 학습할 때 가중치를 얼마나 크게 바꿀지 정하는 값이다. 너무 크면 불안정하고 너무 작으면 학습이 느릴 수 있다.</td>
+              </tr>
+              <tr>
+                <td>Early Stopping</td>
+                <td>검증 성능이 더 이상 좋아지지 않으면 학습을 자동으로 중단하는 방식이다.</td>
+              </tr>
+              <tr>
+                <td>Deployment</td>
+                <td>로컬 컴퓨터에서만 실행되던 프로그램을 다른 사용자도 접속할 수 있는 서버 환경에 올리는 과정이다.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

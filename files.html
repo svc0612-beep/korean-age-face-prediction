@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&#51088;&#47308; &#44288;&#47532; | AgeLens KR</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">AgeLens KR</a>
+      <nav>
+        <a href="/">&#50696;&#52769;</a>
+        <a href="/visualizations.html">&#49884;&#44033;&#54868;</a>
+        <a href="/files.html" aria-current="page">&#51088;&#47308; &#44288;&#47532;</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero compact">
+        <div>
+          <p class="eyebrow">Project Materials</p>
+          <h1>&#54028;&#51068; &#50629;&#47196;&#46300; / &#45796;&#50868;&#47196;&#46300;</h1>
+          <p class="lead">&#48156;&#54364;&#50857; &#51088;&#47308;, &#51060;&#48120;&#51648;, CSV, PDF, &#53581;&#49828;&#53944; &#54028;&#51068;&#51012; &#50629;&#47196;&#46300;&#54616;&#44256; &#54856;&#54168;&#51060;&#51648;&#50640;&#49436; &#45796;&#50868;&#47196;&#46300;&#54624; &#49688; &#51080;&#49845;&#45768;&#45796;.</p>
+        </div>
+      </section>
+
+      <section class="file-workspace">
+        <form id="uploadForm" class="upload-card">
+          <label>
+            <span>&#54028;&#51068; &#49440;&#53469;</span>
+            <input id="fileInput" name="file" type="file" required />
+          </label>
+          <label>
+            <span>&#51228;&#47785;</span>
+            <input id="fileTitle" name="title" type="text" placeholder="Project note" />
+          </label>
+          <label>
+            <span>&#49444;&#47749;</span>
+            <textarea id="fileDescription" name="description" rows="3" placeholder="&#51088;&#47308;&#51032; &#45236;&#50857;&#51012; &#44036;&#45800;&#55176; &#51201;&#50612;&#51452;&#49464;&#50836;"></textarea>
+          </label>
+          <button class="primary-btn" type="submit">&#50629;&#47196;&#46300;</button>
+          <p id="uploadStatus" class="muted"></p>
+        </form>
+
+        <section>
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Uploaded</p>
+              <h2>&#50629;&#47196;&#46300;&#46108; &#51088;&#47308;</h2>
+            </div>
+            <button id="refreshFiles" class="secondary-btn" type="button">&#49352;&#47196;&#44256;&#52840;</button>
+          </div>
+          <div id="fileList" class="file-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="files.js"></script>
+  </body>
+</html>

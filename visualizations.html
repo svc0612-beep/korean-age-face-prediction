@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&#49884;&#44033;&#54868; | AgeLens KR</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">AgeLens KR</a>
+      <nav>
+        <a href="/">&#50696;&#52769;</a>
+        <a href="/visualizations.html" aria-current="page">&#49884;&#44033;&#54868;</a>
+        <a href="/files.html">&#51088;&#47308; &#44288;&#47532;</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero compact">
+        <div>
+          <p class="eyebrow">Dataset & Training</p>
+          <h1>&#54532;&#47196;&#51229;&#53944; &#49884;&#44033;&#54868;</h1>
+          <p class="lead">&#45936;&#51060;&#53552; &#48516;&#54252;&#50752; &#54617;&#49845; &#44284;&#51221;&#51012; &#48156;&#54364;&#50857;&#51004;&#47196; &#51221;&#47532;&#54620; &#54168;&#51060;&#51648;&#51077;&#45768;&#45796;.</p>
+        </div>
+      </section>
+
+      <section class="viz-toolbar">
+        <div>
+          <p class="eyebrow">View Controls</p>
+          <strong>&#49884;&#44033;&#54868; &#44544;&#51088; / &#44536;&#47000;&#54532; &#53356;&#44592;</strong>
+        </div>
+        <label>
+          <span>&#53356;&#44592;</span>
+          <input id="vizSize" type="range" min="100" max="150" value="115" />
+        </label>
+      </section>
+
+      <section class="viz-page-grid">
+        <figure class="viz-card"><img src="assets/visualizations/01_age_group_distribution.png" alt="Age group distribution" /><figcaption>&#45208;&#51060;&#45824; &#48516;&#54252;</figcaption></figure>
+        <figure class="viz-card"><img src="assets/visualizations/02_gender_distribution_donut.png" alt="Gender distribution" /><figcaption>&#49457;&#48324; &#48516;&#54252;</figcaption></figure>
+        <figure class="viz-card"><img src="assets/visualizations/03_split_distribution_donut.png" alt="Split distribution" /><figcaption>Train / Validation &#48516;&#54252;</figcaption></figure>
+        <figure class="viz-card"><img src="assets/visualizations/04_age_past_histogram.png" alt="Age histogram" /><figcaption>age_past &#55176;&#49828;&#53664;&#44536;&#47016;</figcaption></figure>
+        <figure class="viz-card"><img src="assets/visualizations/05_age_by_gender_boxplot.png" alt="Age by gender" /><figcaption>&#49457;&#48324; &#45208;&#51060; &#48516;&#54252;</figcaption></figure>
+        <figure class="viz-card"><img src="assets/visualizations/06_gender_age_heatmap.png" alt="Gender age heatmap" /><figcaption>&#49457;&#48324; x &#45208;&#51060;&#45824; &#55176;&#53944;&#47605;</figcaption></figure>
+        <figure class="viz-card wide"><img src="assets/visualizations/07_training_mae_curve.png" alt="Training MAE" /><figcaption>&#54617;&#49845; MAE &#48320;&#54868;</figcaption></figure>
+        <figure class="viz-card wide"><img src="assets/visualizations/08_training_loss_curve.png" alt="Training loss" /><figcaption>&#54617;&#49845; Loss &#48320;&#54868;</figcaption></figure>
+        <figure class="viz-card wide"><img src="assets/visualizations/09_learning_rate_curve.png" alt="Learning rate" /><figcaption>Learning Rate &#48320;&#54868;</figcaption></figure>
+      </section>
+    </main>
+    <script src="visualizations.js"></script>
+  </body>
+</html>

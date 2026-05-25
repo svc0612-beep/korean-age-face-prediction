@@ -1,0 +1,24 @@
+{
+  "total_images": 45200,
+  "train_images": 40150,
+  "val_images": 5050,
+  "age_min": 0.0,
+  "age_max": 82.0,
+  "age_mean": 22.198849557522124,
+  "age_median": 19.0,
+  "age_group_counts": {
+    "0대": 9573,
+    "10대": 13690,
+    "20대": 9492,
+    "30대": 5983,
+    "40대": 3291,
+    "50대": 2877,
+    "60대이상": 294
+  },
+  "gender_counts": {
+    "female": 25200,
+    "male": 20000
+  },
+  "best_epoch": 54,
+  "best_val_mae": 4.647110369842832
+}

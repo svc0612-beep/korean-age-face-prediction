@@ -1,0 +1,50 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Virtual environments
+.env
+.venv/
+venv/
+
+# AI Hub original dataset - 절대 업로드 금지
+118.안면 인식 에이징(aging) 이미지 데이터/
+
+# User uploaded images - 개인정보 위험
+uploads/
+uploads/*
+
+# Large/sensitive data
+data/
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.gif
+*.npy
+*.npz
+
+# Model files - 용량 크면 GitHub에 올리지 말 것
+*.h5
+*.keras
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.joblib
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+reports/val_predictions.csv

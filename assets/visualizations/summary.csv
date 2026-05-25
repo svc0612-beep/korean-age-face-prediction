@@ -1,0 +1,2 @@
+﻿total_images,train_images,val_images,age_min,age_max,age_mean,age_median,age_group_counts,gender_counts,best_epoch,best_val_mae
+45200,40150,5050,0.0,82.0,22.198849557522124,19.0,"{'0대': 9573, '10대': 13690, '20대': 9492, '30대': 5983, '40대': 3291, '50대': 2877, '60대이상': 294}","{'female': 25200, 'male': 20000}",54,4.647110369842832

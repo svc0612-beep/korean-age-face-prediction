@@ -48,9 +48,9 @@ async function startCamera() {
 }
 
 function clampCropBox(box, videoWidth, videoHeight) {
-  const side = Math.min(Math.max(box.width, box.height) * 1.65, Math.min(videoWidth, videoHeight));
+  const side = Math.min(Math.max(box.width, box.height) * 1.02, Math.min(videoWidth, videoHeight) * 0.42);
   const centerX = box.x + box.width / 2;
-  const centerY = box.y + box.height / 2 - box.height * 0.08;
+  const centerY = box.y + box.height / 2;
   const sx = Math.min(Math.max(0, centerX - side / 2), videoWidth - side);
   const sy = Math.min(Math.max(0, centerY - side / 2), videoHeight - side);
   return { sx, sy, side };
@@ -83,10 +83,12 @@ async function detectFaceCropBox() {
 }
 
 function fallbackGuideCropBox() {
-  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * 0.74;
+  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * 0.30;
+  const centerX = video.videoWidth * 0.57;
+  const centerY = video.videoHeight * 0.42;
   return {
-    sx: (video.videoWidth - sourceSide) / 2,
-    sy: Math.max(0, video.videoHeight * 0.12),
+    sx: Math.min(Math.max(0, centerX - sourceSide / 2), video.videoWidth - sourceSide),
+    sy: Math.min(Math.max(0, centerY - sourceSide / 2), video.videoHeight - sourceSide),
     side: sourceSide,
   };
 }
@@ -130,7 +132,13 @@ async function predict(imageData) {
     if (!response.ok) throw new Error(data.error || "prediction failed");
 
     resultAge.textContent = `${data.rounded_age}\uc138`;
-    resultRange.textContent = `\uc608\uce21\uac12 ${data.predicted_age}\uc138, \ucc38\uace0 \ubc94\uc704 ${data.age_range[0]}~${data.age_range[1]}\uc138 / \ubcf4\uc815 \uc804 ${data.raw_age}\uc138`;
+    const correctionText = data.webcam_offset
+      ? ` / \uc6f9\ucea0 \ubcf4\uc815 ${data.webcam_offset > 0 ? "+" : ""}${data.webcam_offset}\uc138`
+      : "";
+    const reliabilityText = data.low_webcam_reliability
+      ? " / \uc8fc\uc758: \uc6f9\ucea0\uc5d0\uc11c \uc800\uc5f0\ub839 \uc3e0\ub9bc \uac10\uc9c0"
+      : "";
+    resultRange.textContent = `\ubcf4\uc815 \uc804 \ubaa8\ub378\uac12 ${data.raw_age}\uc138, \ucd5c\uc885 \uc608\uce21 ${data.predicted_age}\uc138, \ucc38\uace0 \ubc94\uc704 ${data.age_range[0]}~${data.age_range[1]}\uc138${correctionText}${reliabilityText}`;
     modelMae.textContent = `\u00b1${data.model_mae}\uc138`;
     elapsed.textContent = `${data.elapsed_ms}ms`;
     renderAnalysis(data.analysis);

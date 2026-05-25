@@ -78,17 +78,16 @@ class AgePredictor:
     @staticmethod
     def webcam_adult_offset(age):
         # Webcam images are usually harsher domain-shifted than AI Hub validation images.
-        # This optional correction is intentionally visible in the UI, not hidden.
+        # Keep this conservative. A strong manual correction can collapse different
+        # adult faces into the same age range.
         if age < 18:
-            return 22.0
+            return 8.0
         if age < 25:
-            return 17.0
+            return 5.0
         if age < 30:
-            return 12.0
-        if age < 40:
-            return 7.0
-        if age < 50:
             return 3.0
+        if age < 40:
+            return 1.5
         return 0.0
 
     @staticmethod
@@ -127,6 +126,25 @@ class AgePredictor:
 
         lower = max(0, int(round(predicted_age - self.best_val_mae)))
         upper = min(100, int(round(predicted_age + self.best_val_mae)))
+        low_webcam_reliability = raw_age < 25.0 and original_size[0] == original_size[1]
+        reliability_note = (
+            "\uc8fc\uc758: \uc6f9\ucea0 \uc2e4\uc0ac\uc6a9 \uc774\ubbf8\uc9c0\uc5d0\uc11c \ubaa8\ub378\uc774 \ub098\uc774\ub97c \ub0ae\uac8c \uc608\uce21\ud558\ub294 \uacbd\ud5a5\uc774 \uac10\uc9c0\ub418\uc5c8\uc2b5\ub2c8\ub2e4."
+            if low_webcam_reliability
+            else ""
+        )
+        analysis = [
+            "\uc6f9\ucea0 \uc785\ub825 \uc774\ubbf8\uc9c0\ub97c \uc11c\ubc84\uc5d0\uc11c \uc218\uc2e0\ud588\uc2b5\ub2c8\ub2e4.",
+            f"\uc6d0\ubcf8 \uc774\ubbf8\uc9c0 \ud06c\uae30 {original_size[0]}x{original_size[1]}\ub97c \ud655\uc778\ud588\uc2b5\ub2c8\ub2e4.",
+            "\uc6f9\ud398\uc774\uc9c0\uc5d0\uc11c \uc5bc\uad74 \uac00\uc774\ub4dc \uc601\uc5ed\uc744 \uba3c\uc800 \uc815\uc0ac\uac01\ud615\uc73c\ub85c \uc798\ub77c \ubcf4\ub0c8\uc2b5\ub2c8\ub2e4." if already_cropped else "\uc5bc\uad74\uc774 \uc911\uc559\uc5d0 \uc788\ub2e4\uace0 \uac00\uc815\ud558\uace0 \uc5bc\uad74 \uc911\uc2ec \uc601\uc5ed\uc744 \uc815\uc0ac\uac01\ud615\uc73c\ub85c \uc798\ub790\uc2b5\ub2c8\ub2e4.",
+            f"\ud559\uc2b5 \ub54c\uc640 \ub3d9\uc77c\ud558\uac8c {self.img_size}x{self.img_size} \ud06c\uae30\ub85c \ubcc0\ud658\ud588\uc2b5\ub2c8\ub2e4.",
+            "ImageNet \uae30\uc900 \uc815\uaddc\ud654\ub97c \uc801\uc6a9\ud588\uc2b5\ub2c8\ub2e4.",
+            "\ud559\uc2b5\ub41c MobileNetV3 \ud68c\uadc0 \ubaa8\ub378\uc774 age_past \uae30\uc900 \uc608\uc0c1 \ub098\uc774\ub97c \uacc4\uc0b0\ud588\uc2b5\ub2c8\ub2e4.",
+            f"\ubcf4\uc815 \uc804 \uc608\uce21\uac12\uc740 {raw_age:.1f}\uc138\uc785\ub2c8\ub2e4.",
+            f"\uac80\uc99d \ud1b5\uacc4 \ubcf4\uc815 {validation_offset:+.1f}\uc138, \uc6f9\ucea0 \uc131\uc778 \ubcf4\uc815 {webcam_offset:+.1f}\uc138\ub97c \uc801\uc6a9\ud588\uc2b5\ub2c8\ub2e4.",
+        ]
+        if reliability_note:
+            analysis.append(reliability_note)
+        analysis.append(f"\uac80\uc99d \ud3c9\uade0 \uc624\ucc28\ub294 \uc57d {self.best_val_mae:.2f}\uc138\uc785\ub2c8\ub2e4.")
 
         return {
             "predicted_age": round(predicted_age, 1),
@@ -139,17 +157,9 @@ class AgePredictor:
             "best_epoch": self.best_epoch,
             "device": str(self.device),
             "elapsed_ms": elapsed_ms,
-            "analysis": [
-                "\uc6f9\ucea0 \uc785\ub825 \uc774\ubbf8\uc9c0\ub97c \uc11c\ubc84\uc5d0\uc11c \uc218\uc2e0\ud588\uc2b5\ub2c8\ub2e4.",
-                f"\uc6d0\ubcf8 \uc774\ubbf8\uc9c0 \ud06c\uae30 {original_size[0]}x{original_size[1]}\ub97c \ud655\uc778\ud588\uc2b5\ub2c8\ub2e4.",
-                "\uc6f9\ud398\uc774\uc9c0\uc5d0\uc11c \uc5bc\uad74 \uac00\uc774\ub4dc \uc601\uc5ed\uc744 \uba3c\uc800 \uc815\uc0ac\uac01\ud615\uc73c\ub85c \uc798\ub77c \ubcf4\ub0c8\uc2b5\ub2c8\ub2e4." if already_cropped else "\uc5bc\uad74\uc774 \uc911\uc559\uc5d0 \uc788\ub2e4\uace0 \uac00\uc815\ud558\uace0 \uc5bc\uad74 \uc911\uc2ec \uc601\uc5ed\uc744 \uc815\uc0ac\uac01\ud615\uc73c\ub85c \uc798\ub790\uc2b5\ub2c8\ub2e4.",
-                f"\ud559\uc2b5 \ub54c\uc640 \ub3d9\uc77c\ud558\uac8c {self.img_size}x{self.img_size} \ud06c\uae30\ub85c \ubcc0\ud658\ud588\uc2b5\ub2c8\ub2e4.",
-                "ImageNet \uae30\uc900 \uc815\uaddc\ud654\ub97c \uc801\uc6a9\ud588\uc2b5\ub2c8\ub2e4.",
-                "\ud559\uc2b5\ub41c MobileNetV3 \ud68c\uadc0 \ubaa8\ub378\uc774 age_past \uae30\uc900 \uc608\uc0c1 \ub098\uc774\ub97c \uacc4\uc0b0\ud588\uc2b5\ub2c8\ub2e4.",
-                f"\ubcf4\uc815 \uc804 \uc608\uce21\uac12\uc740 {raw_age:.1f}\uc138\uc785\ub2c8\ub2e4.",
-                f"\uac80\uc99d \ud1b5\uacc4 \ubcf4\uc815 {validation_offset:+.1f}\uc138, \uc6f9\ucea0 \uc131\uc778 \ubcf4\uc815 {webcam_offset:+.1f}\uc138\ub97c \uc801\uc6a9\ud588\uc2b5\ub2c8\ub2e4.",
-                f"\uac80\uc99d \ud3c9\uade0 \uc624\ucc28\ub294 \uc57d {self.best_val_mae:.2f}\uc138\uc785\ub2c8\ub2e4.",
-            ],
+            "low_webcam_reliability": low_webcam_reliability,
+            "reliability_note": reliability_note,
+            "analysis": analysis,
         }
 
 

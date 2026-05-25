@@ -238,9 +238,9 @@ canvas {
 
 .face-guide {
   position: absolute;
-  top: 14%;
-  left: 50%;
-  width: min(62%, 300px);
+  top: 26%;
+  left: 57%;
+  width: min(28%, 150px);
   aspect-ratio: 1;
   transform: translateX(-50%);
   border: 2px solid rgba(255, 255, 255, 0.9);

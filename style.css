@@ -511,3 +511,75 @@ textarea {
     font-size: 54px;
   }
 }
+
+/* 시각화 설명 박스 */
+.viz-description {
+  padding: 16px 18px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.viz-description h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.viz-description p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #374151;
+}
+
+/* 시각화 그래프 크기 조절 + 저시력 사용자용 큰 보기 */
+:root {
+  --viz-scale: 1;
+}
+
+.viz-page-grid.large-view {
+  grid-template-columns: 1fr;
+}
+
+.viz-page-grid.large-view .viz-card,
+.viz-page-grid.large-view .viz-card.wide {
+  grid-column: span 1;
+}
+
+.viz-card {
+  overflow: hidden;
+}
+
+.viz-card img,
+img[src*="assets/visualizations"] {
+  width: min(calc(88% * var(--viz-scale)), 100%);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 18px auto;
+  object-fit: contain;
+  background: #ffffff;
+  transition: width 0.2s ease;
+}
+
+.viz-page-grid.large-view .viz-card img,
+.viz-page-grid.large-view img[src*="assets/visualizations"] {
+  width: 100%;
+  max-width: 100%;
+  margin: 22px auto;
+}
+
+.viz-page-grid.large-view .viz-card figcaption {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.viz-page-grid.large-view .viz-description h3 {
+  font-size: 21px;
+}
+
+.viz-page-grid.large-view .viz-description p {
+  font-size: 18px;
+  line-height: 1.8;
+}

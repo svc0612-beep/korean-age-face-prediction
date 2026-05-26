@@ -13,6 +13,11 @@ const webcamCorrection = document.getElementById("webcamCorrection");
 
 let stream = null;
 let faceDetector = null;
+const FACE_CROP_SCALE = 1.70;
+const FACE_CROP_MAX_RATIO = 0.56;
+const FALLBACK_CROP_RATIO = 0.40;
+const FALLBACK_CENTER_X = 0.56;
+const FALLBACK_CENTER_Y = 0.43;
 
 function setStatus(message, type = "") {
   cameraStatus.textContent = message;
@@ -48,7 +53,7 @@ async function startCamera() {
 }
 
 function clampCropBox(box, videoWidth, videoHeight) {
-  const side = Math.min(Math.max(box.width, box.height) * 1.02, Math.min(videoWidth, videoHeight) * 0.42);
+  const side = Math.min(Math.max(box.width, box.height) * FACE_CROP_SCALE, Math.min(videoWidth, videoHeight) * FACE_CROP_MAX_RATIO);
   const centerX = box.x + box.width / 2;
   const centerY = box.y + box.height / 2;
   const sx = Math.min(Math.max(0, centerX - side / 2), videoWidth - side);
@@ -83,9 +88,9 @@ async function detectFaceCropBox() {
 }
 
 function fallbackGuideCropBox() {
-  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * 0.30;
-  const centerX = video.videoWidth * 0.57;
-  const centerY = video.videoHeight * 0.42;
+  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * FALLBACK_CROP_RATIO;
+  const centerX = video.videoWidth * FALLBACK_CENTER_X;
+  const centerY = video.videoHeight * FALLBACK_CENTER_Y;
   return {
     sx: Math.min(Math.max(0, centerX - sourceSide / 2), video.videoWidth - sourceSide),
     sy: Math.min(Math.max(0, centerY - sourceSide / 2), video.videoHeight - sourceSide),

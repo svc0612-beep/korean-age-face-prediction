@@ -137,13 +137,17 @@ async function predict(imageData) {
     if (!response.ok) throw new Error(data.error || "prediction failed");
 
     resultAge.textContent = `${data.rounded_age}\uc138`;
+    const modelAdjustedAge = data.model_adjusted_age ?? data.predicted_age;
+    const groupText = data.predicted_group
+      ? ` / \ubaa8\ub378 \ub098\uc774\ub300 ${data.predicted_group}(${data.group_confidence}%)`
+      : "";
     const correctionText = data.webcam_offset
       ? ` / \uc6f9\ucea0 \ubcf4\uc815 ${data.webcam_offset > 0 ? "+" : ""}${data.webcam_offset}\uc138`
       : "";
     const reliabilityText = data.low_webcam_reliability
       ? " / \uc8fc\uc758: \uc6f9\ucea0\uc5d0\uc11c \uc800\uc5f0\ub839 \uc3e0\ub9bc \uac10\uc9c0"
       : "";
-    resultRange.textContent = `\ubcf4\uc815 \uc804 \ubaa8\ub378\uac12 ${data.raw_age}\uc138, \ucd5c\uc885 \uc608\uce21 ${data.predicted_age}\uc138, \ucc38\uace0 \ubc94\uc704 ${data.age_range[0]}~${data.age_range[1]}\uc138${correctionText}${reliabilityText}`;
+    resultRange.textContent = `\ud68c\uadc0\uac12 ${data.raw_age}\uc138, \uba40\ud2f0\ud0dc\uc2a4\ud06c \ubcf4\uc815 ${modelAdjustedAge}\uc138, \ucd5c\uc885 \uc608\uce21 ${data.predicted_age}\uc138, \ucc38\uace0 \ubc94\uc704 ${data.age_range[0]}~${data.age_range[1]}\uc138${groupText}${correctionText}${reliabilityText}`;
     modelMae.textContent = `\u00b1${data.model_mae}\uc138`;
     elapsed.textContent = `${data.elapsed_ms}ms`;
     renderAnalysis(data.analysis);

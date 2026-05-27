@@ -207,6 +207,11 @@ h3 {
   background: #ecfdf3;
 }
 
+.status.busy {
+  color: #2357d9;
+  background: #eef3ff;
+}
+
 .status.error {
   color: var(--red);
   background: #fff1f3;

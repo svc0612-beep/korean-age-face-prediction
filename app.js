@@ -138,7 +138,13 @@ function renderAnalysis(items) {
 async function predict(imageData) {
   captureBtn.disabled = true;
   captureBtn.textContent = "\ubd84\uc11d \uc911";
-  resultRange.textContent = "\ub85c\uceec PyTorch \ubaa8\ub378\uc774 \uc774\ubbf8\uc9c0\ub97c \ubd84\uc11d\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4.";
+  setStatus("\uc9c0\uae08 \ubd84\uc11d \uc911\uc785\ub2c8\ub2e4.", "busy");
+  resultAge.textContent = `--\uc138`;
+  resultRange.textContent = "\uc9c0\uae08 \ubd84\uc11d \uc911\uc785\ub2c8\ub2e4. \ud559\uc2b5\ud55c EfficientNet-B0 v3 \ubaa8\ub378\ub85c \uc774\ubbf8\uc9c0\ub97c \ucc98\ub9ac\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.";
+  renderAnalysis([
+    "\uc9c0\uae08 \ubd84\uc11d \uc911\uc785\ub2c8\ub2e4.",
+    "\ucd2c\uc601\ub41c \uc774\ubbf8\uc9c0\ub97c \ud559\uc2b5\ub41c v3 \ubaa8\ub378 \uc785\ub825 \ud06c\uae30\ub85c \ubcc0\ud658\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.",
+  ]);
 
   try {
     const response = await fetch("/predict", {
@@ -169,9 +175,11 @@ async function predict(imageData) {
     modelMae.textContent = `\u00b1${data.model_mae}\uc138`;
     elapsed.textContent = `${data.elapsed_ms}ms`;
     renderAnalysis(data.analysis);
+    setStatus("\ubd84\uc11d \uc644\ub8cc", "ready");
   } catch (error) {
     resultAge.textContent = `--\uc138`;
     resultRange.textContent = `\ubd84\uc11d \uc2e4\ud328: ${error.message}`;
+    setStatus("\ubd84\uc11d \uc2e4\ud328", "error");
     renderAnalysis([
       "\uc11c\ubc84\uac00 \uc2e4\ud589 \uc911\uc778\uc9c0 \ud655\uc778\ud558\uc138\uc694.",
       "\ubaa8\ub378 \ud30c\uc77c \uacbd\ub85c\uc640 PyTorch \uc124\uce58 \uc0c1\ud0dc\ub97c \ud655\uc778\ud558\uc138\uc694.",

@@ -39,9 +39,9 @@ Training was stopped manually on 2026-05-26 during epoch 13. The best checkpoint
 
 ## Notes
 
-- V3 greatly reduced the problem where 30s faces were predicted as late teens or early 20s in validation-style evaluation.
+- V3 was connected to the web inference path, replacing the older MobileNetV3 inference model.
+- The prediction page now loads `best_age_efficientnet_v3_multitask.pt` and uses both the age regression head and the age-group classification head.
 - The 40s, 50s, and 60plus groups are still under-predicted.
-- The next step is to update web inference to load `best_age_efficientnet_v3_multitask.pt`.
 - For real webcam accuracy, additional webcam-domain fine-tuning data is still recommended.
 
 ## Saved Artifacts

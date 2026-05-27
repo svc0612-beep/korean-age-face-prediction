@@ -238,9 +238,9 @@ canvas {
 
 .face-guide {
   position: absolute;
-  top: 23%;
+  top: 20%;
   left: 56%;
-  width: min(40%, 220px);
+  width: min(49%, 274px);
   aspect-ratio: 1;
   transform: translateX(-50%);
   border: 2px solid rgba(255, 255, 255, 0.9);
@@ -262,6 +262,39 @@ canvas {
   display: flex;
   gap: 10px;
   margin-top: 16px;
+}
+
+.capture-controls {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.range-control {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.range-control span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #333a46;
+  font-weight: 850;
+}
+
+.range-control input {
+  padding: 0;
+}
+
+.control-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .inline-check {

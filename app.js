@@ -10,14 +10,31 @@ const modelMae = document.getElementById("modelMae");
 const elapsed = document.getElementById("elapsed");
 const analysisList = document.getElementById("analysisList");
 const webcamCorrection = document.getElementById("webcamCorrection");
+const cropScaleInput = document.getElementById("cropScale");
+const cropScaleValue = document.getElementById("cropScaleValue");
+const faceGuide = document.getElementById("faceGuide");
 
 let stream = null;
 let faceDetector = null;
-const FACE_CROP_SCALE = 1.70;
-const FACE_CROP_MAX_RATIO = 0.56;
-const FALLBACK_CROP_RATIO = 0.40;
+const DEFAULT_FACE_CROP_SCALE = 2.20;
+const FACE_CROP_MAX_RATIO = 0.72;
 const FALLBACK_CENTER_X = 0.56;
 const FALLBACK_CENTER_Y = 0.43;
+
+function currentCropScale() {
+  const value = Number.parseFloat(cropScaleInput?.value || DEFAULT_FACE_CROP_SCALE);
+  return Number.isFinite(value) ? value : DEFAULT_FACE_CROP_SCALE;
+}
+
+function updateCropGuide() {
+  const scale = currentCropScale();
+  if (cropScaleValue) cropScaleValue.textContent = `${scale.toFixed(2)}x`;
+  if (!faceGuide) return;
+
+  const guidePercent = Math.min(62, Math.max(34, 18 + scale * 14));
+  const guideMaxPx = Math.round(120 + scale * 70);
+  faceGuide.style.width = `min(${guidePercent}%, ${guideMaxPx}px)`;
+}
 
 function setStatus(message, type = "") {
   cameraStatus.textContent = message;
@@ -53,7 +70,7 @@ async function startCamera() {
 }
 
 function clampCropBox(box, videoWidth, videoHeight) {
-  const side = Math.min(Math.max(box.width, box.height) * FACE_CROP_SCALE, Math.min(videoWidth, videoHeight) * FACE_CROP_MAX_RATIO);
+  const side = Math.min(Math.max(box.width, box.height) * currentCropScale(), Math.min(videoWidth, videoHeight) * FACE_CROP_MAX_RATIO);
   const centerX = box.x + box.width / 2;
   const centerY = box.y + box.height / 2;
   const sx = Math.min(Math.max(0, centerX - side / 2), videoWidth - side);
@@ -88,7 +105,8 @@ async function detectFaceCropBox() {
 }
 
 function fallbackGuideCropBox() {
-  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * FALLBACK_CROP_RATIO;
+  const fallbackRatio = Math.min(0.68, Math.max(0.42, currentCropScale() / 4.0));
+  const sourceSide = Math.min(video.videoWidth, video.videoHeight) * fallbackRatio;
   const centerX = video.videoWidth * FALLBACK_CENTER_X;
   const centerY = video.videoHeight * FALLBACK_CENTER_Y;
   return {
@@ -175,5 +193,7 @@ captureBtn.addEventListener("click", async () => {
 });
 
 retryBtn.addEventListener("click", startCamera);
+cropScaleInput?.addEventListener("input", updateCropGuide);
 
+updateCropGuide();
 startCamera();

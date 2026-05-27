@@ -22,10 +22,10 @@
         <div>
           <p class="eyebrow">Local PyTorch Inference</p>
           <h1>&#50937;&#52896;&#51004;&#47196; &#52524;&#50689;&#54616;&#47732; &#50696;&#49345; &#45208;&#51060;&#47484; &#44228;&#49328;&#54633;&#45768;&#45796;.</h1>
-          <p class="lead">외부 API 없이 학습한 EfficientNet-B0 v3 멀티태스크 모델을 로컬에서 실행합니다.</p>
+          <p class="lead">&#50808;&#48512; API &#50630;&#51060; &#54617;&#49845;&#54620; EfficientNet-B0 v3 &#47708;&#54000;&#53468;&#49828;&#53356; &#47784;&#45944;&#51012; &#47196;&#52972;&#50640;&#49436; &#49892;&#54665;&#54633;&#45768;&#45796;.</p>
         </div>
         <div class="hero-stats">
-          <div><span>Best MAE</span><strong>±4.07세</strong></div>
+          <div><span>Best MAE</span><strong>&#177;4.07&#49464;</strong></div>
           <div><span>Train</span><strong>40,150</strong></div>
           <div><span>Validation</span><strong>5,050</strong></div>
         </div>
@@ -44,7 +44,7 @@
           <div class="camera-layout">
             <div class="video-box">
               <video id="video" autoplay playsinline muted></video>
-              <div class="face-guide"></div>
+              <div id="faceGuide" class="face-guide"></div>
             </div>
             <div class="shot-box">
               <canvas id="canvas" width="720" height="540"></canvas>
@@ -56,8 +56,17 @@
             <button id="captureBtn" class="primary-btn" type="button">&#52272;&#52865;</button>
             <button id="retryBtn" class="secondary-btn" type="button">&#52852;&#47700;&#46972; &#45796;&#49884; &#53020;&#44592;</button>
           </div>
+
+          <div class="capture-controls">
+            <label class="range-control">
+              <span>&#50620;&#44404; crop &#48276;&#50948; <strong id="cropScaleValue">2.20x</strong></span>
+              <input id="cropScale" type="range" min="1.40" max="2.80" step="0.05" value="2.20" />
+            </label>
+            <p class="control-note">&#51329;&#44172; &#51096;&#47532;&#47732; &#50724;&#47480;&#51901;&#51004;&#47196; &#50734;&#44200;&#49436; &#51060;&#47560;, &#47672;&#47532;, &#53553;&#49440;&#51060; &#54632;&#44760; &#46308;&#50612;&#50724;&#44172; &#54616;&#49464;&#50836;.</p>
+          </div>
+
           <label class="inline-check">
-            <input id="webcamCorrection" type="checkbox" />
+            <input id="webcamCorrection" type="checkbox" checked />
             <span>&#50937;&#52896; &#49457;&#51064; &#48372;&#51221; &#51201;&#50857;</span>
           </label>
         </article>
